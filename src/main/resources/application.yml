@@ -1,0 +1,42 @@
+server:
+  port: 8081
+  servlet:
+    contextPath: /    
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: itzi.enriquez@people-media.com.mx
+    password: iisvuctckmysiumy
+    properties:
+     mail:
+      smtp:
+       auth: true
+       starttls:
+         enable: true
+       connectiontimeout: 5000
+       timeout: 5000
+  datasource:
+      platform: mariadb
+      driverClassName: org.mariadb.jdbc.Driver
+      url: jdbc:mariadb:failover://34.70.190.223:3306/adts_cdb_ds?autoReconnect=true
+      username: superusuario
+      password: imss.2022
+
+      timeBetweenEvictionRunsMillis: 1000
+      testWhileIdle: true
+      validationQuery: SELECT 1
+      hikari:
+        maximum-pool-size: 1
+  jpa:
+    show-sql: true
+    hibernate:
+        ddl-auto: none
+  server:
+    name: oauth
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
