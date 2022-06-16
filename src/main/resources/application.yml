@@ -1,7 +1,7 @@
 server:
   port: 8081
   servlet:
-    contextPath: /    
+    contextPath: /
 spring:
   mail:
     host: smtp.gmail.com
@@ -9,29 +9,31 @@ spring:
     username: itzi.enriquez@people-media.com.mx
     password: iisvuctckmysiumy
     properties:
-     mail:
-      smtp:
-       auth: true
-       starttls:
-         enable: true
-       connectiontimeout: 5000
-       timeout: 5000
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
   datasource:
-      platform: mariadb
-      driverClassName: org.mariadb.jdbc.Driver
-      url: jdbc:mariadb:failover://34.70.190.223:3306/adts_cdb_ds?autoReconnect=true
-      username: superusuario
-      password: imss.2022
+    platform: mariadb
+    driverClassName: org.mariadb.jdbc.Driver
+    url: ${mots_CONNECTION_DB}
+    username: ${mots_USERNAME_DB}
+    password: ${mots_PASSWORD_DB}
 
-      timeBetweenEvictionRunsMillis: 1000
-      testWhileIdle: true
-      validationQuery: SELECT 1
-      hikari:
-        maximum-pool-size: 1
+    timeBetweenEvictionRunsMillis: 1000
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    hikari:
+      maximum-pool-size: 1
   jpa:
     show-sql: true
     hibernate:
-        ddl-auto: none
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   server:
     name: oauth
 

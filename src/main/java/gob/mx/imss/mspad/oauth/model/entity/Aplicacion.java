@@ -21,7 +21,7 @@ import lombok.Data;
  */
 @Data
 @Entity
-@Table(name="adtst_aplicaciones")
+@Table(name="ADTST_APLICACIONES")
 public class Aplicacion implements Serializable {
 	
 	private static final long serialVersionUID = -8337640745343203538L;

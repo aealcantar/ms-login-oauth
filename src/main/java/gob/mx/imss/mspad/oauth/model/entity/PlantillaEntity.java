@@ -1,47 +1,50 @@
 package gob.mx.imss.mspad.oauth.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
 
-/**
- * @Author Itzi B. Enriquez R. LT
- * @Date   28 abr. 2022
- * @IMSS
- */
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
 @Getter
 @Setter
-@Data
-@Entity
-@Table(name = "adts_plantillas_notificaciones")
+@ToString
+@RequiredArgsConstructor
+@Table(name = "ADTSC_PLANTILLA_NOTIFICACION")
+
 public class PlantillaEntity {
-    /** Identificador de la tabla. */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_plantillanot")
+    @Column(name = "ID_PLANTILLA_NOTIFICACION", nullable = false)
     private Long id;
 
-    /** Asunto. */
-    @Column(name = "des_asunto")
-    private String asunto;
+    @Column(name = "DES_ASUNTO")
+    private String desAsunto;
 
-    /** Asunto. */
-    @Column(name = "des_plantilla")
-    private String plantilla;
-    
-    /** Clave. */
-    @Column(name = "des_clave")
-    private String clave;
+    @Column(name = "DES_CLAVE", length = 100)
+    private String desClave;
+
+    @Column(name = "DES_PLANTILLA", length = 10000)
+    private String desPlantilla;
+
+    @Column(name = "FEC_EXPIRA")
+    private Date fecExpira;
+
+    @Column(name = "FEC_ALTA")
+    private Date fecAlta;
+
+    @Column(name = "FEC_ACTUALIZACION")
+    private Date fecActualizacion;
+
+    @Column(name = "FEC_BAJA")
+    private Date fecBaja;
+
+    @Column(name = "IND_ACTIVO")
+    private Boolean indActivo;
+
 }

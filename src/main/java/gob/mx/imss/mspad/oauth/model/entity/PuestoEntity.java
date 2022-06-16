@@ -24,7 +24,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "adtsc_puestos")
+@Table(name = "ADTSC_PUESTOS")
 public class PuestoEntity {
 
 	@Id

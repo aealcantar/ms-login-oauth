@@ -24,123 +24,124 @@ import gob.mx.imss.mspad.oauth.service.IUsuarioService;
 
 /**
  * @Author Itzi B. Enriquez R. LT
- * @Date   28 abr. 2022
+ * @Date 28 abr. 2022
  * @IMSS
  */
 @Service
 public class UsuarioService implements UserDetailsService, IUsuarioService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioService.class);
 
-	@Autowired
-	IUsuarioService usuarioService;
+    @Autowired
+    IUsuarioService usuarioService;
 
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
-	public String passwordAux;
-	public Integer idSistema;
+    public String passwordAux;
+    public Integer idSistema;
 
-	public FuncionalidadRequest funcionalidadRequest;
+    public FuncionalidadRequest funcionalidadRequest;
 
-	@Autowired
-	UsuarioRepository usuarioRepository;
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
-	@Override
-	public void setPasswordAux(String passwordAux) {
-		this.passwordAux = passwordAux;
-	}
+    @Override
+    public void setPasswordAux(String passwordAux) {
+        this.passwordAux = passwordAux;
+    }
 
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		LOGGER.info("########## loadUserByUsername  ##########");
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        LOGGER.info("########## loadUserByUsername  ##########");
 
-		List<GrantedAuthority> authorities = new ArrayList<>();
-		UsuarioEntity usuarioEntity = usuarioRepository.findByUsername(username);
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        UsuarioEntity usuarioEntity = usuarioRepository.findByUsername(username);
 
-		if (usuarioEntity == null) {
+        if (usuarioEntity == null) {
 
-			throw new UsernameNotFoundException("Error :  ¡Usuario inválido!");
+            throw new UsernameNotFoundException("Error :  ¡Usuario inválido!");
 
-		} else {
+        } else {
 
-			if (usuarioEntity.getNumIntentos().equals(3) || usuarioEntity.getActivo().equals(0)) {
-				throw new UsernameNotFoundException(
-						"Usuario bloqueado por número de intentos excedidos, favor de contactar al administrador.");
+            if (usuarioEntity.getIndNumIntentos().equals(3) || usuarioEntity.getIndActivo().equals(0)) {
+                throw new UsernameNotFoundException(
+                        "Usuario bloqueado por número de intentos excedidos, favor de contactar al administrador.");
 
-			}
+            }
 
-			if (!usuarioRepository.existsByUsernameAndPassword(username, passwordAux)) {
-				if (usuarioEntity != null && usuarioEntity.getNumIntentos() <= 3) {
-					int numIntentos = usuarioEntity.getNumIntentos() + 1;
-					usuarioEntity.setNumIntentos(numIntentos);
-					LOGGER.info("########## Num intentos  ##########" + numIntentos);
+            if (!usuarioRepository.existsByUsernameAndPassword(username, passwordAux)) {
+                if (usuarioEntity != null && usuarioEntity.getIndNumIntentos() <= 3) {
+                    int numIntentos = usuarioEntity.getIndNumIntentos().intValue() + 1;
+                    usuarioEntity.setIndNumIntentos((long) numIntentos);
+                    LOGGER.info("########## Num intentos  ##########" + numIntentos);
 
-					usuarioRepository.update3Reintentos(numIntentos, usuarioEntity.getCvePersonalId());
+                    usuarioRepository.update3Reintentos(numIntentos, usuarioEntity.getId());
 
-				}
-				if (usuarioEntity.getNumIntentos() == 3) {
-					usuarioRepository.updateActivoInactivoUSer(1, usuarioEntity.getCvePersonalId());
-					throw new UsernameNotFoundException(
-							"¡Ha superado el número de intentos! Su cuenta se ha bloquedo Intente recuperar su contraseña.");
+                }
+                if (usuarioEntity.getIndNumIntentos() == 3) {
+                    usuarioRepository.updateActivoInactivoUSer(1, usuarioEntity.getId());
+                    throw new UsernameNotFoundException(
+                            "¡Ha superado el número de intentos! Su cuenta se ha bloquedo Intente recuperar su contraseña.");
 
-				}
+                }
 
-				throw new UsernameNotFoundException(
-						"¡Credenciales incorrectas. Volver a intentar! Solo tiene 3 intentos");
+                throw new UsernameNotFoundException(
+                        "¡Credenciales incorrectas. Volver a intentar! Solo tiene 3 intentos");
 
-			}
+            }
 
-		}
+        }
 
-		return new CustomUser(username, passwordEncoder.encode(this.passwordAux), true, true, true, true, authorities);
+        return new CustomUser(username, passwordEncoder.encode(this.passwordAux), true, true, true, true, authorities);
 
-	}
+    }
 
-	@Override
-	public UsuarioEntity findByCorreo(String correo) {
-		LOGGER.info("########## findUserByEmailUsername  ##########");
-		Optional<UsuarioEntity> usuario = usuarioRepository.findByEmail(correo);
-		if (!usuario.isPresent()) {
-			throw new UsernameNotFoundException("Error :  ¡Correo no registrado!");
+    @Override
+    public UsuarioEntity findByCorreo(String correo) {
+        LOGGER.info("########## findUserByEmailUsername  ##########");
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByEmail(correo);
+        if (!usuario.isPresent()) {
+            throw new UsernameNotFoundException("Error :  ¡Correo no registrado!");
 
-		}
+        }
 
-		return usuario.get();
-	}
+        return usuario.get();
+    }
 
-	@Override
-	public UsuarioEntity findByNomCuentaMetro(String nomCuentaMetro) {
+    @Override
+    public UsuarioEntity findByNomCuentaMetro(String nomCuentaMetro) {
 
-		return null;
-	}
-	
-	@Override
-	public UsuarioEntity findByNombre(String aliasUsuario) {
-		return usuarioRepository.findByUsername(aliasUsuario);
-	}
+        return null;
+    }
 
-	@Override
-	public void setCveSistema(Integer idSistema) {
-		this.idSistema = idSistema;
+    @Override
+    public UsuarioEntity findByNombre(String aliasUsuario) {
+        return usuarioRepository.findByUsername(aliasUsuario);
+    }
 
-	}
+    @Override
+    public void setCveSistema(Integer idSistema) {
+        this.idSistema = idSistema;
 
-	@Override
-	public Integer getCveSistema() {
-		return this.idSistema;
+    }
 
-	}
-	@Override
-	@Transactional
-	public Integer updatePasswordByCorreo(String correo,String password) {
-		// TODO Auto-generated method stub
-		LOGGER.info("########## Update Password  by Email ##########");
-		
-		return usuarioRepository.updatePassword(password,correo);
-		
-	}
+    @Override
+    public Integer getCveSistema() {
+        return this.idSistema;
+
+    }
+
+    @Override
+    @Transactional
+    public Integer updatePasswordByCorreo(String correo, String password) {
+        // TODO Auto-generated method stub
+        LOGGER.info("########## Update Password  by Email ##########");
+
+        return usuarioRepository.updatePassword(password, correo);
+
+    }
 
 }
 
