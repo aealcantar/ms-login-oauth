@@ -25,19 +25,19 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
 	@Transactional
 	@Modifying
-	@Query("update UsuarioEntity u set u.numIntentos = :numIntentos where cvePersonalId = :cvePersonalId")
+	@Query("update UsuarioEntity u set u.indNumIntentos = :numIntentos where id = :cvePersonalId")
 	public void update3Reintentos(@Param("numIntentos") int numIntentos,@Param("cvePersonalId") Long cvePersonalId);
 	
 	@Transactional
 	@Modifying
-	@Query("update UsuarioEntity u set u.activo = :activo where cvePersonalId = :cvePersonalId")
+	@Query("update UsuarioEntity u set u.indActivo = :activo where id = :cvePersonalId")
 	public void updateActivoInactivoUSer(@Param("activo") int activo,@Param("cvePersonalId") Long cvePersonalId);
 	
 	
 	Boolean existsByUsernameAndPassword(String desMatricula, String password);
 	
 	@Modifying
-	@Query("update UsuarioEntity usr set usr.password =?1, usr.numIntentos=0, usr.activo=1  where usr.email= ?2")
+	@Query("update UsuarioEntity usr set usr.desPassword =?1, usr.indNumIntentos=0, usr.indActivo=1  where usr.desEmail= ?2")
 	Integer updatePassword(String password,String  email);
 
 
