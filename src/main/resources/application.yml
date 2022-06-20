@@ -19,9 +19,9 @@ spring:
   datasource:
     platform: mariadb
     driverClassName: org.mariadb.jdbc.Driver
-    url: ${mots_CONNECTION_DB}
-    username: ${mots_USERNAME_DB}
-    password: ${mots_PASSWORD_DB}
+    url: ${adt_CONNECTION_DB}
+    username: ${adt_USERNAME_DB}
+    password: ${adt_PASSWORD_DB}
 
     timeBetweenEvictionRunsMillis: 1000
     testWhileIdle: true
