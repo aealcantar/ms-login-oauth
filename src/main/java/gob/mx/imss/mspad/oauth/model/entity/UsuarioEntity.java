@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @Setter
 @Table(name = "ADTSC_USUARIOS")
 public class UsuarioEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_USUARIO", nullable = false)

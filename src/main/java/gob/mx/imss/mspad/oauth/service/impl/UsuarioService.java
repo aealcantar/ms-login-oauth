@@ -54,7 +54,7 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
         LOGGER.info("########## loadUserByUsername  ##########");
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        UsuarioEntity usuarioEntity = usuarioRepository.findByUsername(username);
+        UsuarioEntity usuarioEntity = usuarioRepository.findByNumMatricula(username);
 
         if (usuarioEntity == null) {
 
@@ -98,7 +98,7 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
     @Override
     public UsuarioEntity findByCorreo(String correo) {
         LOGGER.info("########## findUserByEmailUsername  ##########");
-        Optional<UsuarioEntity> usuario = usuarioRepository.findByEmail(correo);
+        Optional<UsuarioEntity> usuario = usuarioRepository.findBydesEmail(correo);
         if (!usuario.isPresent()) {
             throw new UsernameNotFoundException("Error :  ¡Correo no registrado!");
 
@@ -111,11 +111,12 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
     public UsuarioEntity findByNomCuentaMetro(String nomCuentaMetro) {
 
         return null;
+
     }
 
     @Override
     public UsuarioEntity findByNombre(String aliasUsuario) {
-        return usuarioRepository.findByUsername(aliasUsuario);
+        return usuarioRepository.findByNomUsuario(aliasUsuario);
     }
 
     @Override

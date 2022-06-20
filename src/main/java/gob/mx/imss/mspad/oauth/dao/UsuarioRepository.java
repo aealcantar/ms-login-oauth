@@ -18,8 +18,13 @@ import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
-	UsuarioEntity findByUsername(String desMatricula);
-	Optional<UsuarioEntity> findByEmail(String email);
+	UsuarioEntity findByNumMatricula(String desMatricula);
+
+	UsuarioEntity findByNomUsuario(String nomUsuario);
+
+
+
+	Optional<UsuarioEntity> findBydesEmail(String desEmail);
 	
 	Boolean existsByUsername(String desMatricula);
 
