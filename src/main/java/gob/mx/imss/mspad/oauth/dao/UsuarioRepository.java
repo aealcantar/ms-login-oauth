@@ -18,14 +18,14 @@ import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
-    UsuarioEntity findByNumMatricula(String desMatricula);
+    UsuarioEntity findByNumMatricula(Long desMatricula);
 
     UsuarioEntity findByNomUsuario(String nomUsuario);
 
 
     Optional<UsuarioEntity> findBydesEmail(String desEmail);
 
-    Boolean existsByNumMatricula(String desMatricula);
+    Boolean existsByNumMatricula(Long desMatricula);
 
     @Transactional
     @Modifying
@@ -38,7 +38,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
     public void updateActivoInactivoUSer(@Param("activo") int activo, @Param("cvePersonalId") Long cvePersonalId);
 
 
-    Boolean existsByNumMatriculaAndDesPassword(String desMatricula, String password);
+    Boolean existsByNumMatriculaAndDesPassword(Long desMatricula, String password);
 
     @Modifying
     @Query("update UsuarioEntity usr set usr.desPassword =?1, usr.indNumIntentos=0, usr.indActivo=1  where usr.desEmail= ?2")

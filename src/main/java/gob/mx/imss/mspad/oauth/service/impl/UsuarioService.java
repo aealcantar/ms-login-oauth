@@ -53,8 +53,9 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LOGGER.info("########## loadUserByUsername  ##########");
 
+
         List<GrantedAuthority> authorities = new ArrayList<>();
-        UsuarioEntity usuarioEntity = usuarioRepository.findByNumMatricula(username);
+        UsuarioEntity usuarioEntity = usuarioRepository.findByNumMatricula(Long.parseLong(username));
 
         if (usuarioEntity == null) {
 
@@ -68,7 +69,7 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 
             }
 
-            if (!usuarioRepository.existsByNumMatriculaAndDesPassword(username, passwordAux)) {
+            if (!usuarioRepository.existsByNumMatriculaAndDesPassword(Long.parseLong(username), passwordAux)) {
                 if (usuarioEntity != null && usuarioEntity.getIndNumIntentos() <= 3) {
                     int numIntentos = usuarioEntity.getIndNumIntentos().intValue() + 1;
                     usuarioEntity.setIndNumIntentos((long) numIntentos);
