@@ -68,7 +68,7 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 
             }
 
-            if (!usuarioRepository.existsByUsernameAndPassword(username, passwordAux)) {
+            if (!usuarioRepository.existsByNumMatriculaAndDesPassword(username, passwordAux)) {
                 if (usuarioEntity != null && usuarioEntity.getIndNumIntentos() <= 3) {
                     int numIntentos = usuarioEntity.getIndNumIntentos().intValue() + 1;
                     usuarioEntity.setIndNumIntentos((long) numIntentos);
