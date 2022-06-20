@@ -39,7 +39,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 	public void updateActivoInactivoUSer(@Param("activo") int activo,@Param("cvePersonalId") Long cvePersonalId);
 	
 	
-	Boolean existsByUsernameAndPassword(String desMatricula, String password);
+	Boolean existsByNumMatriculaAndDesPassword(String desMatricula, String password);
 	
 	@Modifying
 	@Query("update UsuarioEntity usr set usr.desPassword =?1, usr.indNumIntentos=0, usr.indActivo=1  where usr.desEmail= ?2")
