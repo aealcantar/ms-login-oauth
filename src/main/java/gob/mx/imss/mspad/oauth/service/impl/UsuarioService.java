@@ -53,7 +53,6 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LOGGER.info("########## loadUserByUsername  ##########");
 
-
         List<GrantedAuthority> authorities = new ArrayList<>();
         UsuarioEntity usuarioEntity = usuarioRepository.findByNumMatricula(Long.parseLong(username));
 
@@ -64,6 +63,7 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
         } else {
 
             if (usuarioEntity.getIndNumIntentos().equals(3) || usuarioEntity.getIndActivo().equals(0)) {
+
                 throw new UsernameNotFoundException(
                         "Usuario bloqueado por número de intentos excedidos, favor de contactar al administrador.");
 
