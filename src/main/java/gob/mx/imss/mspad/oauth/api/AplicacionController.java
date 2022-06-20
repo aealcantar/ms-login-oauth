@@ -34,7 +34,7 @@ import gob.mx.imss.mspad.oauth.service.impl.UsuarioService;
  * @IMSS
  */
 @RestController
-@RequestMapping("/api/aplicacion")
+@RequestMapping("/msadt-auth/api/aplicacion")
 @CrossOrigin
 public class AplicacionController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AplicacionController.class);
