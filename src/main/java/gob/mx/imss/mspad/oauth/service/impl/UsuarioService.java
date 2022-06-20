@@ -33,9 +33,6 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioService.class);
 
     @Autowired
-    IUsuarioService usuarioService;
-
-    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     public String passwordAux;

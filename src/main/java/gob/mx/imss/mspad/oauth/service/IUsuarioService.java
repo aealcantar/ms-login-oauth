@@ -1,8 +1,7 @@
 package gob.mx.imss.mspad.oauth.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
-
 import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @Author Itzi B. Enriquez R. LT
