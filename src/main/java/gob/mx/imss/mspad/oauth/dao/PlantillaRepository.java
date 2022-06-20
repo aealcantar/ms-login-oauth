@@ -14,5 +14,5 @@ import gob.mx.imss.mspad.oauth.model.entity.PlantillaEntity;
 @Repository
 public interface PlantillaRepository extends JpaRepository<PlantillaEntity, Long> {
 
-	PlantillaEntity findByClave(String clave);
+	PlantillaEntity findByDesClave(String clave);
 }

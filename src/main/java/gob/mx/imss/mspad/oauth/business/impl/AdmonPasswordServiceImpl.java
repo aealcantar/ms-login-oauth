@@ -50,7 +50,7 @@ public class AdmonPasswordServiceImpl implements AdmonPasswordService {
             correos.add(usuario.getDesEmail());
 
 
-            PlantillaEntity plantillaEntity = plantillaRepository.findByClave("conf_reset_password");
+            PlantillaEntity plantillaEntity = plantillaRepository.findByDesClave("conf_reset_password");
 
 
             String htmlText = null;
