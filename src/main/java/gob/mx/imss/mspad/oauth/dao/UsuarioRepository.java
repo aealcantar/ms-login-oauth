@@ -18,32 +18,31 @@ import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
-	UsuarioEntity findByNumMatricula(String desMatricula);
+    UsuarioEntity findByNumMatricula(String desMatricula);
 
-	UsuarioEntity findByNomUsuario(String nomUsuario);
+    UsuarioEntity findByNomUsuario(String nomUsuario);
 
 
+    Optional<UsuarioEntity> findBydesEmail(String desEmail);
 
-	Optional<UsuarioEntity> findBydesEmail(String desEmail);
-	
-	Boolean existsByUsername(String desMatricula);
+    Boolean existsByNumMatricula(String desMatricula);
 
-	@Transactional
-	@Modifying
-	@Query("update UsuarioEntity u set u.indNumIntentos = :numIntentos where id = :cvePersonalId")
-	public void update3Reintentos(@Param("numIntentos") int numIntentos,@Param("cvePersonalId") Long cvePersonalId);
-	
-	@Transactional
-	@Modifying
-	@Query("update UsuarioEntity u set u.indActivo = :activo where id = :cvePersonalId")
-	public void updateActivoInactivoUSer(@Param("activo") int activo,@Param("cvePersonalId") Long cvePersonalId);
-	
-	
-	Boolean existsByNumMatriculaAndDesPassword(String desMatricula, String password);
-	
-	@Modifying
-	@Query("update UsuarioEntity usr set usr.desPassword =?1, usr.indNumIntentos=0, usr.indActivo=1  where usr.desEmail= ?2")
-	Integer updatePassword(String password,String  email);
+    @Transactional
+    @Modifying
+    @Query("update UsuarioEntity u set u.indNumIntentos = :numIntentos where id = :cvePersonalId")
+    public void update3Reintentos(@Param("numIntentos") int numIntentos, @Param("cvePersonalId") Long cvePersonalId);
+
+    @Transactional
+    @Modifying
+    @Query("update UsuarioEntity u set u.indActivo = :activo where id = :cvePersonalId")
+    public void updateActivoInactivoUSer(@Param("activo") int activo, @Param("cvePersonalId") Long cvePersonalId);
+
+
+    Boolean existsByNumMatriculaAndDesPassword(String desMatricula, String password);
+
+    @Modifying
+    @Query("update UsuarioEntity usr set usr.desPassword =?1, usr.indNumIntentos=0, usr.indActivo=1  where usr.desEmail= ?2")
+    Integer updatePassword(String password, String email);
 
 
 }
