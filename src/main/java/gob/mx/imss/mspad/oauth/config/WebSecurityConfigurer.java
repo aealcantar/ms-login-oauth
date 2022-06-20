@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 /**
  * @Author Itzi B. Enriquez R. LT
@@ -51,12 +53,13 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter{
         .and()
         .cors();
         
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+        firewall.setAllowUrlEncodedSlash(true); 
+        
          httpSecurity
         .authorizeRequests()
         .antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**").permitAll();
     }
-    
-    
     
     /*@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {

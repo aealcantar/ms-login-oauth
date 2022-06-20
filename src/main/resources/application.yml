@@ -2,9 +2,6 @@ server:
   port: 8080
   servlet:
     contextPath: /  
-    session:
-      tracking-modes:
-      - cookie  
 spring:
   mail:
     host: ${adt_HOST_MAIL}
