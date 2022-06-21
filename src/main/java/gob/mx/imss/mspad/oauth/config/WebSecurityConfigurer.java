@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -47,20 +48,15 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity httpSecurity) throws Exception {
     	System.out.println("Webb111securr111");
         httpSecurity
-        .requestMatchers().antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**")
+        .requestMatchers().antMatchers(HttpMethod.POST, "/msadt-auth/oauth/**")
         .and()
         .csrf().disable().formLogin()
         .and()
-        .cors(); 
+        .cors();
         
-        super.configure(httpSecurity);
-        StrictHttpFirewall firewall = new StrictHttpFirewall();
-        firewall.setAllowUrlEncodedSlash(true);
-        firewall.setAllowSemicolon(false);
-        
-//         httpSecurity
-//        .authorizeRequests()
-//        .antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**").permitAll();
+         httpSecurity
+        .authorizeRequests()
+        .antMatchers(HttpMethod.POST, "/msadt-auth/oauth/**").permitAll();
     }
     
     /*@Override
