@@ -51,15 +51,15 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter{
         httpSecurity.sessionManagement().enableSessionUrlRewriting(true);
         
         httpSecurity
-        .requestMatchers().antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**")
+        .requestMatchers().antMatchers(HttpMethod.OPTIONS, "/oauth/**")
         .and()
         .csrf().disable().formLogin()
         .and()
         .cors();
         
-         httpSecurity
-        .authorizeRequests()
-        .antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**").permitAll();
+//         httpSecurity
+//        .authorizeRequests()
+//        .antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**").permitAll();
     }
     
     /*@Override
