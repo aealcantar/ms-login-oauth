@@ -51,14 +51,16 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter{
         .and()
         .csrf().disable().formLogin()
         .and()
-        .cors();
+        .cors(); 
         
+        super.configure(httpSecurity);
         StrictHttpFirewall firewall = new StrictHttpFirewall();
-        firewall.setAllowUrlEncodedSlash(true); 
+        firewall.setAllowUrlEncodedSlash(true);
+        firewall.setAllowSemicolon(false);
         
-         httpSecurity
-        .authorizeRequests()
-        .antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**").permitAll();
+//         httpSecurity
+//        .authorizeRequests()
+//        .antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**").permitAll();
     }
     
     /*@Override
