@@ -47,8 +47,6 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
     	System.out.println("Webb111securr111");
-    	
-        httpSecurity.sessionManagement().enableSessionUrlRewriting(true);
         
         httpSecurity
         .requestMatchers().antMatchers(HttpMethod.OPTIONS, "/oauth/**")
@@ -57,9 +55,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter{
         .and()
         .cors();
         
-//         httpSecurity
-//        .authorizeRequests()
-//        .antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**").permitAll();
+         httpSecurity
+        .authorizeRequests()
+        .antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**").permitAll();
     }
     
     /*@Override
