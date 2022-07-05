@@ -59,16 +59,18 @@ public class CustomFilter implements Filter {
             try {
                 String pass2 = servletRequest.getParameter("password");
                 String pass = crypto.encrypt(servletRequest.getParameter("password"));
+                
                 usuarioService.setPasswordAux(pass);
                 String user = servletRequest.getParameter("username");
                 usuarioService.loadUserByUsername(user).getUsername();
-
+                
                 LOGGER.info("Logging Request  {} : {}", request.getMethod(), request.getRequestURI());
 
                 Map<String, String[]> modParams = new HashMap<String, String[]>(request.getParameterMap());
                 modParams.put("username", new String[]{user});
                 modParams.put("password", new String[]{pass});
                 modParams.put("grant_type", new String[]{"password"});
+                modParams.put("appId", new String[]{"AD"});
                 HttpServletRequest modRqst = new ModParamHttpServletRequest(request, modParams);
 
                 filterChain.doFilter(modRqst, servletResponse);
@@ -86,18 +88,7 @@ public class CustomFilter implements Filter {
                 LOGGER.info("Exception e :{}", e.getMessage());
 
                 e.printStackTrace();
-            } catch (Exception e) {
-
-                ErrorResponse errorResponse = new ErrorResponse();
-                errorResponse.setCode(401);
-                errorResponse.setMessage(e.getMessage());
-                byte[] responseToSend = restResponseBytes(errorResponse);
-                ((HttpServletResponse) response).setHeader("Content-Type", "application/json");
-                ((HttpServletResponse) response).setStatus(401);
-                response.getOutputStream().write(responseToSend);
-
-                LOGGER.info("Exception e :{}", e.getMessage());
-            }
+            } 
         } else {
             LOGGER.info("Solicitando credenciales de header........");
             filterChain.doFilter(servletRequest, servletResponse);

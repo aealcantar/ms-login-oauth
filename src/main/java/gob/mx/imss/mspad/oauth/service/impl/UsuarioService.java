@@ -61,7 +61,7 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
             throw new UsernameNotFoundException("Error :  ¡Usuario inválido!");
 
         } else {
-
+   
             if (usuarioEntity.getIndNumIntentos().equals(3) || usuarioEntity.getIndActivo().equals(0)) {
 
                 throw new UsernameNotFoundException(
@@ -70,7 +70,7 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
             }
 
             if (!usuarioRepository.existsByNumMatriculaAndDesPassword(Long.parseLong(username), passwordAux)) {
-                if (usuarioEntity != null && usuarioEntity.getIndNumIntentos() <= 3) {
+            	 if (usuarioEntity != null && usuarioEntity.getIndNumIntentos() <= 3) {
                     int numIntentos = usuarioEntity.getIndNumIntentos().intValue() + 1;
                     usuarioEntity.setIndNumIntentos((long) numIntentos);
                     LOGGER.info("########## Num intentos  ##########" + numIntentos);
@@ -92,7 +92,7 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 
         }
 
-        return new CustomUser(username, passwordEncoder.encode(this.passwordAux), true, true, true, true, authorities);
+        return new CustomUser(username, passwordEncoder.encode(passwordAux), true, true, true, true, authorities);
 
     }
 

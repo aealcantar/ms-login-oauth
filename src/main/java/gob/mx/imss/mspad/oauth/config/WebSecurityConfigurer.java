@@ -49,7 +49,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter{
     	System.out.println("Webb111securr111");
         
         httpSecurity
-        .requestMatchers().antMatchers(HttpMethod.OPTIONS, "/oauth/**")
+        .requestMatchers().antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**")
         .and()
         .csrf().disable().formLogin()
         .and()
@@ -57,7 +57,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter{
         
          httpSecurity
         .authorizeRequests()
-        .antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**").permitAll();
+        .antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**").permitAll()
+        .anyRequest().authenticated();
     }
     
     /*@Override

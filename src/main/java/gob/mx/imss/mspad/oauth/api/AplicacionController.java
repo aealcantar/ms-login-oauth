@@ -94,6 +94,7 @@ public class AplicacionController {
     public UsuarioBean getUserSession(@RequestParam(value = "aliasUsuario") String aliasUsuario) {
         LOGGER.info("Request :{}", aliasUsuario);
         try {
+        	
             UsuarioEntity usuario = usuarioService.findByNombre(aliasUsuario);
             RolEntity rolEntity = usuario.getRole();
             //PuestoEntity puestoEntity = usuario.getPuesto();
@@ -104,7 +105,7 @@ public class AplicacionController {
             usuarioDTO.setApellidoPaterno(usuario.getNomPrimerApellido());
             usuarioDTO.setApellidoMaterno(usuario.getNomSegundoApellido());
             usuarioDTO.setCorreo(usuario.getDesEmail());
-            usuarioDTO.setMatricula(String.valueOf(usuario.getNumMatricula()));
+            usuarioDTO.setMatricula(Long.valueOf(usuario.getNumMatricula()));
             usuarioDTO.setCedulaProfesional(String.valueOf(usuario.getNumMatricula()));
             usuarioDTO.setUnidadMedica(usuario.getDesUnidadMedica());
             Rol rolDTO = new Rol();

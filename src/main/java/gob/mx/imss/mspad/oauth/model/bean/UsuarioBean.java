@@ -16,7 +16,7 @@ public class UsuarioBean {
 	private String apellidoMaterno;
 	private String correo;
 	private String aliasNombre;
-	private String matricula;
+	private Long matricula;
 	private String cedulaProfesional;
 	private Puesto puesto;
 	private String unidadMedica;
