@@ -55,13 +55,15 @@ public class CustomFilter implements Filter {
         }
 
         if (!getMethod.contains("aplicacion")) {
-
+System.out.print("CustomFilter entre a aplicacion:" + servletRequest.getParameter("username") +"" + servletRequest.getParameter("password") + "Fin");
             try {
                 String pass2 = servletRequest.getParameter("password");
                 String pass = crypto.encrypt(servletRequest.getParameter("password"));
                 
+                System.out.print("PW_ " + crypto.encrypt(servletRequest.getParameter("password")));
+                
                 usuarioService.setPasswordAux(pass);
-                String user = servletRequest.getParameter("username");
+                String user = String.valueOf(servletRequest.getParameter("username"));
                 usuarioService.loadUserByUsername(user).getUsername();
                 
                 LOGGER.info("Logging Request  {} : {}", request.getMethod(), request.getRequestURI());
@@ -77,6 +79,8 @@ public class CustomFilter implements Filter {
                 LOGGER.info("Logging Response :{}", response.getContentType());
             } catch (UsernameNotFoundException e) {
 
+            	System.out.print("CustomFilter entre a error:");
+            	
                 ErrorResponse errorResponse = new ErrorResponse();
                 errorResponse.setCode(401);
                 errorResponse.setMessage(e.getMessage());

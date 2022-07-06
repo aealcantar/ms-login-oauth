@@ -92,6 +92,7 @@ import org.springframework.util.Assert;
 		public CustomUser(String username, String password, boolean enabled,
 				boolean accountNonExpired, boolean credentialsNonExpired,
 				boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+			System.out.print("Entre Customer con usua: " + username + "Fin");
 			
 			if (((username == null) || "".equals(username)) || (password == null)) {
 				throw new IllegalArgumentException(
@@ -190,6 +191,7 @@ import org.springframework.util.Assert;
 		 */
 		@Override
 		public boolean equals(Object rhs) {
+			System.out.print("Entre equal");
 			if (rhs instanceof CustomUser) {
 				return username.equals(((CustomUser) rhs).username);
 			}
@@ -206,6 +208,7 @@ import org.springframework.util.Assert;
 
 		@Override
 		public String toString() {
+			System.out.print("Entre Custom To string");
 			StringBuilder sb = new StringBuilder();
 			sb.append(super.toString()).append(": ");
 			sb.append("Username: ").append(this.username).append("; ");

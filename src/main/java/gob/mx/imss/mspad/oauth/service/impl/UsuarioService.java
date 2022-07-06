@@ -89,6 +89,9 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
                         "¡Credenciales incorrectas. Volver a intentar! Solo tiene 3 intentos");
 
             }
+            else {
+            	System.out.print("Si se encontro: " +usuarioEntity.getNumMatricula() + "FIn");
+            }
 
         }
 
