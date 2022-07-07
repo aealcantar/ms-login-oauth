@@ -109,10 +109,6 @@ import org.springframework.util.Assert;
 					this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));
 				}
 
-			
-
-				
-				
 			}
 			catch (Exception ex) {
 				System.out.print("Error catch: " + ex);
@@ -222,7 +218,7 @@ import org.springframework.util.Assert;
 			StringBuilder sb = new StringBuilder();
 			sb.append(super.toString()).append(": ");
 			sb.append("Username: ").append(this.username).append("; ");
-			sb.append("Password: [PROTECTED]; ");
+			sb.append("Password: [PROTECTED]; ").append(this.password).append("; ");
 			sb.append("Enabled: ").append(this.enabled).append("; ");
 			sb.append("AccountNonExpired: ").append(this.accountNonExpired).append("; ");
 			sb.append("credentialsNonExpired: ").append(this.credentialsNonExpired)

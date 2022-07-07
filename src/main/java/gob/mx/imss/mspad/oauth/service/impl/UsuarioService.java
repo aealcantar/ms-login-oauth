@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import gob.mx.imss.mspad.oauth.dao.UsuarioRepository;
 import gob.mx.imss.mspad.oauth.model.bean.FuncionalidadRequest;
-import gob.mx.imss.mspad.oauth.model.entity.Aplicacion;
 import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
 import gob.mx.imss.mspad.oauth.service.IUsuarioService;
 
