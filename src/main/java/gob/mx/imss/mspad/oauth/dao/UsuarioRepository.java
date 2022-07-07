@@ -1,5 +1,6 @@
 package gob.mx.imss.mspad.oauth.dao;
 
+import java.math.BigInteger;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,12 +31,12 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
     @Transactional
     @Modifying
     @Query("update UsuarioEntity u set u.indNumIntentos = :numIntentos where id = :cvePersonalId")
-    public void update3Reintentos(@Param("numIntentos") int numIntentos, @Param("cvePersonalId") Long cvePersonalId);
+    public void update3Reintentos(@Param("numIntentos") int numIntentos, @Param("cvePersonalId") BigInteger bigInteger);
 
     @Transactional
     @Modifying
     @Query("update UsuarioEntity u set u.indActivo = :activo where id = :cvePersonalId")
-    public void updateActivoInactivoUSer(@Param("activo") int activo, @Param("cvePersonalId") Long cvePersonalId);
+    public void updateActivoInactivoUSer(@Param("activo") int activo, @Param("cvePersonalId") BigInteger bigInteger);
 
 
     Boolean existsByNumMatriculaAndDesPassword(Long desMatricula, String password);

@@ -1,5 +1,7 @@
 package gob.mx.imss.mspad.oauth.model.bean;
 
+import java.math.BigInteger;
+
 import lombok.Data;
 
 /**
@@ -10,7 +12,7 @@ import lombok.Data;
 @Data
 public class UsuarioBean {
 	
-	private Integer idUsuario;
+	private BigInteger idUsuario;
 	private String nombre;
 	private String apellidoPaterno;
 	private String apellidoMaterno;

@@ -105,7 +105,7 @@ public class AplicacionController {
             usuarioDTO.setApellidoPaterno(usuario.getNomPrimerApellido());
             usuarioDTO.setApellidoMaterno(usuario.getNomSegundoApellido());
             usuarioDTO.setCorreo(usuario.getDesEmail());
-            usuarioDTO.setMatricula(Long.valueOf(usuario.getNumMatricula()));
+            usuarioDTO.setMatricula(usuario.getNumMatricula());
             usuarioDTO.setCedulaProfesional(String.valueOf(usuario.getNumMatricula()));
             usuarioDTO.setUnidadMedica(usuario.getDesUnidadMedica());
             Rol rolDTO = new Rol();

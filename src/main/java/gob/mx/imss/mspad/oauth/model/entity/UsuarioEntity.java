@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import java.math.BigInteger;
 import java.time.Instant;
 import java.time.LocalDate;
 
@@ -20,7 +22,7 @@ public class UsuarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_USUARIO", nullable = false)
-    private Long id;
+    private BigInteger id;
 
     @OneToOne
     @JoinColumn(name = "ID_ROL")
