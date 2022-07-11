@@ -119,6 +119,12 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 		return null;
 
 	}
+	
+	@Override
+	public UsuarioEntity findByNumMatricula(Long matricula) {
+		return usuarioRepository.findByNumMatricula(matricula);
+	}
+	
 
 	@Override
 	public UsuarioEntity findByNombre(String aliasUsuario) {

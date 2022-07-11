@@ -22,5 +22,6 @@ public interface IUsuarioService {
 	public Integer getCveSistema();
 	public UserDetails loadUserByUsername(String username);
 	public UsuarioEntity findByNombre(String aliasUsuario);
+	UsuarioEntity findByNumMatricula(Long matricula);
 
 }

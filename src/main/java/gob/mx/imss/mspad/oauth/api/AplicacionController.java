@@ -92,36 +92,49 @@ public class AplicacionController {
 		LOGGER.info("Request :{}", aliasUsuario);
 		try {
 
-			UsuarioEntity usuario = usuarioService.findByNombre(aliasUsuario);
+			if (aliasUsuario != null) {
 
-			if (usuario != null) {
-				RolEntity rolEntity = usuario.getRole();
-				// PuestoEntity puestoEntity = usuario.getPuesto();
-				LOGGER.info("Response :{}", usuario);
-				UsuarioBean usuarioDTO = new UsuarioBean();
-				usuarioDTO.setAliasNombre(usuario.getNomUsuario());
-				usuarioDTO.setNombre(usuario.getNomNombreCompleto());
-				usuarioDTO.setApellidoPaterno(usuario.getNomPrimerApellido());
-				usuarioDTO.setApellidoMaterno(usuario.getNomSegundoApellido());
-				usuarioDTO.setCorreo(usuario.getDesEmail());
-				usuarioDTO.setMatricula(Long.valueOf(usuario.getNumMatricula()));
-				usuarioDTO.setCedulaProfesional(String.valueOf(usuario.getNumMatricula()));
-				usuarioDTO.setUnidadMedica(usuario.getDesUnidadMedica());
-				Rol rolDTO = new Rol();
-				rolDTO.setIdRol(rolEntity.getIdRol());
-				rolDTO.setNombreRol(rolEntity.getNombre());
-				usuarioDTO.setRol(rolDTO);
-				Puesto puestoDTO = new Puesto();
-				// puestoDTO.setIdPuesto(puestoEntity.getIdPuesto());
-				puestoDTO.setNombrePuesto(usuario.getDesPuesto());
-				usuarioDTO.setPuesto(puestoDTO);
-				return usuarioDTO;
+				UsuarioEntity usuario = usuarioService.findByNumMatricula(Long.valueOf(aliasUsuario));
+
+				if (usuario != null) {
+					RolEntity rolEntity = usuario.getRole();
+					// PuestoEntity puestoEntity = usuario.getPuesto();
+					LOGGER.info("Response :{}", usuario);
+					UsuarioBean usuarioDTO = new UsuarioBean();
+					usuarioDTO.setAliasNombre(usuario.getNomUsuario());
+					usuarioDTO.setNombre(usuario.getNomNombreCompleto());
+					usuarioDTO.setApellidoPaterno(usuario.getNomPrimerApellido());
+					usuarioDTO.setApellidoMaterno(usuario.getNomSegundoApellido());
+					usuarioDTO.setCorreo(usuario.getDesEmail());
+					usuarioDTO.setMatricula(Long.valueOf(usuario.getNumMatricula()));
+					usuarioDTO.setCedulaProfesional(String.valueOf(usuario.getNumMatricula()));
+					usuarioDTO.setUnidadMedica(usuario.getDesUnidadMedica());
+					Rol rolDTO = new Rol();
+
+					if (rolEntity != null) {
+						rolDTO.setIdRol(rolEntity.getIdRol());
+						rolDTO.setNombreRol(rolEntity.getNombre());
+						usuarioDTO.setRol(rolDTO);
+					}
+
+					Puesto puestoDTO = new Puesto();
+					// puestoDTO.setIdPuesto(puestoEntity.getIdPuesto());
+					puestoDTO.setNombrePuesto(usuario.getDesPuesto());
+					usuarioDTO.setPuesto(puestoDTO);
+					return usuarioDTO;
+				}
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@GetMapping("/test")
+	public String getUserSession() {
+		LOGGER.info("metodo test para pruebas de ejecucion");
+		return "metodo de prueba sin parametros ";
 	}
 
 }
