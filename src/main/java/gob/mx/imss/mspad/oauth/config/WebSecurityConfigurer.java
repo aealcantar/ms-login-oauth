@@ -57,7 +57,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter{
         
          httpSecurity
         .authorizeRequests()
-        .antMatchers(HttpMethod.OPTIONS, "/msadt-auth/oauth/**").permitAll();
+        .antMatchers(HttpMethod.OPTIONS, "/oauth/**").permitAll()
+        .anyRequest().authenticated();
     }
     
     /*@Override

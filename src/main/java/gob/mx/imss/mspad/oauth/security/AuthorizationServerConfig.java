@@ -57,11 +57,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		 Aplicacion app=   aplicacionService.findByNombreAplicacion("SAD");
-		
+		 System.out.println("app.getCveAplicacion() :{}"+app.getCveAplicacion());
+		 System.out.println("app.getCvePassword() :{}"+app.getCvePassword());
 		clients.inMemory()
 		.withClient(app.getCveAplicacion())
 		.secret(passwordEncoder.encode(app.getCvePassword()))
-		.scopes("read", "write")
+			.scopes("read", "write")
 		.authorizedGrantTypes("password", "refresh_token")
 		.accessTokenValiditySeconds(900000)
 		.refreshTokenValiditySeconds(900000)

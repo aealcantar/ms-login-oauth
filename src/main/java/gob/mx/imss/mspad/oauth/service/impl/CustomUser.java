@@ -93,27 +93,18 @@ import org.springframework.util.Assert;
 				boolean accountNonExpired, boolean credentialsNonExpired,
 				boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
 			
-			try {
-				
-				if (((username == null) || "".equals(username)) || (password == null)) {
-					throw new IllegalArgumentException(
-							"No deben venir vacios los datos");
-				}
-				else {
-					this.username = username;
-					this.password = password;
-					this.enabled = enabled;
-					this.accountNonExpired = accountNonExpired;
-					this.credentialsNonExpired = credentialsNonExpired;
-					this.accountNonLocked = accountNonLocked;
-					this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));
-				}
+			if (((username == null) || "".equals(username)) || (password == null)) {
+				throw new IllegalArgumentException(
+						"No deben venir vacios los datos");
+			}
 
-			}
-			catch (Exception ex) {
-				System.out.print("Error catch: " + ex);
-			}
-			
+			this.username = username;
+			this.password = password;
+			this.enabled = enabled;
+			this.accountNonExpired = accountNonExpired;
+			this.credentialsNonExpired = credentialsNonExpired;
+			this.accountNonLocked = accountNonLocked;
+			this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));
 		}
 
 		// ~ Methods
@@ -218,7 +209,7 @@ import org.springframework.util.Assert;
 			StringBuilder sb = new StringBuilder();
 			sb.append(super.toString()).append(": ");
 			sb.append("Username: ").append(this.username).append("; ");
-			sb.append("Password: [PROTECTED]; ").append(this.password).append("; ");
+			sb.append("Password: [PROTECTED]; ");
 			sb.append("Enabled: ").append(this.enabled).append("; ");
 			sb.append("AccountNonExpired: ").append(this.accountNonExpired).append("; ");
 			sb.append("credentialsNonExpired: ").append(this.credentialsNonExpired)
