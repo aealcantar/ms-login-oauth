@@ -1,21 +1,18 @@
 server:
   port: 8080
   servlet:
-    contextPath: /msadt-auth  
+    contextPath: /
 spring:
   mail:
-    host: ${adt_HOST_MAIL}
-    port: 587
-    username: ${adt_USER_MAIL}
-    password: ${adt_PASSWORD_MAIL}
-    properties:
-     mail:
-      smtp:
-       auth: true
-       starttls:
-         enable: true
-       connectiontimeout: 5000
-       timeout: 5000
+     default-encoding: UTF-8
+     host: relay.imss.gob.mx
+     username: adt.imss@imss.gob.mx
+     port: 25
+     properties:
+       mail:
+        smtp:
+         connectiontimeout:5000
+         timeout:5000
   datasource:
       platform: mariadb
       driverClassName: org.mariadb.jdbc.Driver
@@ -35,12 +32,12 @@ spring:
         naming:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   server:
-    name: oauth
+    name: msadt-auth
+    main:
+    allow-bean-definition-overriding: true
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
-        
-ms.login.oauth.app.name: SAD
