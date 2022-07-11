@@ -32,12 +32,12 @@ spring:
         naming:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   server:
-    name: msadt-auth
-    main:
-    allow-bean-definition-overriding: true
+    name: oauth
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+        
+ms.login.oauth.app.name: SAD
