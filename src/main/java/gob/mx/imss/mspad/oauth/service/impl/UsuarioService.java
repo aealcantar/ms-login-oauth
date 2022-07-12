@@ -61,41 +61,47 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 
 		} else {
 
-			if (usuarioEntity.getIndNumIntentos() == null) {
+			if (usuarioEntity.getIndActivo().booleanValue()) {
 
-				throw new UsernameNotFoundException("El valor IndNumIntentos se encuentra nulo.");
+				if (usuarioEntity.getIndNumIntentos() == null) {
+
+					throw new UsernameNotFoundException("El valor IndNumIntentos se encuentra nulo.");
+
+				} else {
+
+					if (usuarioEntity.getIndNumIntentos().equals(3) || usuarioEntity.getIndActivo().equals(0)) {
+
+						throw new UsernameNotFoundException(
+								"Usuario bloqueado por número de intentos excedidos, favor de contactar al administrador.");
+
+					}
+
+					if (!usuarioRepository.existsByNumMatriculaAndDesPassword(Long.parseLong(username), passwordAux)) {
+						if (usuarioEntity != null && usuarioEntity.getIndNumIntentos() <= 3) {
+							int numIntentos = usuarioEntity.getIndNumIntentos().intValue() + 1;
+							usuarioEntity.setIndNumIntentos((long) numIntentos);
+
+							usuarioRepository.update3Reintentos(Long.valueOf(numIntentos), usuarioEntity.getId());
+
+						}
+						if (usuarioEntity.getIndNumIntentos() == 3) {
+							usuarioRepository.updateActivoInactivoUSer(1, usuarioEntity.getId());
+							throw new UsernameNotFoundException(
+									"¡Ha superado el número de intentos! Su cuenta se ha bloquedo Intente recuperar su contraseña.");
+
+						}
+
+						throw new UsernameNotFoundException(
+								"¡Credenciales incorrectas. Volver a intentar! Solo tiene 3 intentos");
+
+					}
+
+				}
 
 			} else {
-
-				if (usuarioEntity.getIndNumIntentos().equals(3) || usuarioEntity.getIndActivo().equals(0)) {
-
-					throw new UsernameNotFoundException( "Usuario bloqueado por número de intentos excedidos, favor de contactar al administrador.");
-
-				}
-
-				if (!usuarioRepository.existsByNumMatriculaAndDesPassword(Long.parseLong(username), passwordAux)) {
-					if (usuarioEntity != null && usuarioEntity.getIndNumIntentos() <= 3) {
-						int numIntentos = usuarioEntity.getIndNumIntentos().intValue() + 1;
-						usuarioEntity.setIndNumIntentos((long) numIntentos);
-						LOGGER.info("########## Num intentos  ##########" + numIntentos);
-
-						usuarioRepository.update3Reintentos(numIntentos, usuarioEntity.getId());
-
-					}
-					if (usuarioEntity.getIndNumIntentos() == 3) {
-						usuarioRepository.updateActivoInactivoUSer(1, usuarioEntity.getId());
-						throw new UsernameNotFoundException(
-								"¡Ha superado el número de intentos! Su cuenta se ha bloquedo Intente recuperar su contraseña.");
-
-					}
-
-					throw new UsernameNotFoundException(
-							"¡Credenciales incorrectas. Volver a intentar! Solo tiene 3 intentos");
-
-				}
-
+				throw new UsernameNotFoundException(
+						"Usuario inactivo, favor de contactar al administrador.");
 			}
-
 		}
 		return new CustomUser(username, passwordEncoder.encode(passwordAux), true, true, true, true, authorities);
 
@@ -119,12 +125,11 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 		return null;
 
 	}
-	
+
 	@Override
 	public UsuarioEntity findByNumMatricula(Long matricula) {
 		return usuarioRepository.findByNumMatricula(matricula);
 	}
-	
 
 	@Override
 	public UsuarioEntity findByNombre(String aliasUsuario) {

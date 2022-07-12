@@ -31,7 +31,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
     @Transactional
     @Modifying
     @Query("update UsuarioEntity u set u.indNumIntentos = :numIntentos where id = :cvePersonalId")
-    public void update3Reintentos(@Param("numIntentos") int numIntentos, @Param("cvePersonalId") BigInteger bigInteger);
+    public void update3Reintentos(@Param("numIntentos") Long numIntentos, @Param("cvePersonalId") BigInteger bigInteger);
 
     @Transactional
     @Modifying

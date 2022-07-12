@@ -101,6 +101,7 @@ public class AplicacionController {
 					// PuestoEntity puestoEntity = usuario.getPuesto();
 					LOGGER.info("Response :{}", usuario);
 					UsuarioBean usuarioDTO = new UsuarioBean();
+					usuarioDTO.setIdUsuario(usuario.getId());
 					usuarioDTO.setAliasNombre(usuario.getNomUsuario());
 					usuarioDTO.setNombre(usuario.getNomNombreCompleto());
 					usuarioDTO.setApellidoPaterno(usuario.getNomPrimerApellido());
