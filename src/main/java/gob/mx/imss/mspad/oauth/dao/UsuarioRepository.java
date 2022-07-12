@@ -36,7 +36,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
     @Transactional
     @Modifying
     @Query("update UsuarioEntity u set u.indActivo = :activo where id = :cvePersonalId")
-    public void updateActivoInactivoUSer(@Param("activo") int activo, @Param("cvePersonalId") BigInteger bigInteger);
+    public void updateActivoInactivoUSer(@Param("activo") boolean activo , @Param("cvePersonalId") BigInteger bigInteger);
 
 
     Boolean existsByNumMatriculaAndDesPassword(Long desMatricula, String password);

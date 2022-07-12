@@ -69,7 +69,7 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 
 				} else {
 
-					if (usuarioEntity.getIndNumIntentos().equals(3) || usuarioEntity.getIndActivo().equals(0)) {
+					if (usuarioEntity.getIndNumIntentos()>=3 || !usuarioEntity.getIndActivo().booleanValue()) {
 
 						throw new UsernameNotFoundException(
 								"Usuario bloqueado por número de intentos excedidos, favor de contactar al administrador.");
@@ -85,14 +85,13 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 
 						}
 						if (usuarioEntity.getIndNumIntentos() == 3) {
-							usuarioRepository.updateActivoInactivoUSer(1, usuarioEntity.getId());
+							usuarioRepository.updateActivoInactivoUSer(false, usuarioEntity.getId());
 							throw new UsernameNotFoundException(
 									"¡Ha superado el número de intentos! Su cuenta se ha bloquedo Intente recuperar su contraseña.");
 
 						}
 
-						throw new UsernameNotFoundException(
-								"¡Credenciales incorrectas. Volver a intentar! Solo tiene 3 intentos");
+						throw new UsernameNotFoundException("¡Credenciales incorrectas. Volver a intentar! Solo tiene 3 intentos");
 
 					}
 
