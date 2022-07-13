@@ -2,8 +2,6 @@ server:
   port: 8080
   servlet:
     contextPath: /msadt-auth
-    encoding: UTF-8
-    force-response: true
   tomcat:     uri-encoding: UTF-8
 spring:
   mail:
@@ -36,7 +34,6 @@ spring:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   server:
     name: oauth
-  http:    encoding:      charset: UTF-8  info:    build:      encoding: UTF-8
 
 management:
   endpoints:
