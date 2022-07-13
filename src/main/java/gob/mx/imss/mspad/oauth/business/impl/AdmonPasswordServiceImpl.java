@@ -65,11 +65,13 @@ public class AdmonPasswordServiceImpl implements AdmonPasswordService {
                     htmlText2 = htmlText.replaceAll("DATA_NOMBRE", usuario.getNomNombreCompleto());
                     htmlText3 = htmlText2.replaceAll("DATA_CORREO", correo);
                     plantillaString = htmlText3.replaceAll("DATA_FORMAT2", FechaUtil.fechaHoy());
+                    
+                    
 
                 }
             }
 
-
+            LOGGER.info("PLANTILLA----" + plantillaString);
             mailService.sendMail(correos, plantillaEntity.getDesAsunto(), plantillaString, null, null, usuario.getNomNombreCompleto(), usuario.getDesEmail());
 
             recPass.setStatus("200");

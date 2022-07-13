@@ -1,8 +1,12 @@
 package gob.mx.imss.mspad.oauth.util;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -35,6 +39,8 @@ public class FechaUtil {
 
         
         String mes2 = fecha.getDisplayName(Calendar.MONTH, Calendar.LONG, spanish);
+		LOGGER.info("mes2"+mes2);
+
 //        test
         DateTimeFormatter fecha2 = DateTimeFormatter.ofPattern("MMMM");
         
@@ -43,6 +49,23 @@ public class FechaUtil {
         String mesNombre = stringMes.toUpperCase().charAt(0) + stringMes.substring(1, stringMes.length()).toLowerCase();
         
 		LOGGER.info("FECHA2"+fecha2.format(LocalDateTime.now()));
+		
+		// Obtienes el mes actual
+				Month mes = LocalDate.now().getMonth();
+				int dia1 = LocalDate.now().getDayOfMonth();
+				int anio1 = LocalDate.now().getYear();
+
+				// Obtienes el nombre del mes
+				String nombre = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+				
+				
+				// Convierte a mayúscula la primera letra del nombre.
+				String primeraLetra = nombre.substring(0,1);
+				String mayuscula = primeraLetra.toUpperCase();
+				String demasLetras = nombre.substring(1, nombre.length());
+				nombre = mayuscula + demasLetras;
+
+				LOGGER.info("FECHA3"+dia1 + " de "+ mes +" de "+anio1);
 
 //      test
 		
@@ -53,14 +76,26 @@ public class FechaUtil {
 	}
 	
 	public static void main(String[] args) {
-	String fecha = 	fechaCompleta();
-	
-	System.out.println(fecha);
-	
-//	DateTimeFormatter fecha2 = DateTimeFormatter.ofPattern("MMMM");
-//    System.out.println("-----: " + fecha2.format(LocalDateTime.now()));
-//    
-//	LOGGER.info("FECHA2"+fecha2.format(LocalDateTime.now()));
+		
+		System.out.println(fechaCompleta());
+		// Obtienes el mes actual
+		Month mes = LocalDate.now().getMonth();
+		int dia = LocalDate.now().getDayOfMonth();
+		int anio = LocalDate.now().getYear();
+
+		// Obtienes el nombre del mes
+		String nombre = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+		
+		
+		// Convierte a mayúscula la primera letra del nombre.
+		String primeraLetra = nombre.substring(0,1);
+		String mayuscula = primeraLetra.toUpperCase();
+		String demasLetras = nombre.substring(1, nombre.length());
+		nombre = mayuscula + demasLetras;
+
+		System.out.println(dia + " de "+ mes +" de "+anio);
+		
+		 
 	}
 
 }
