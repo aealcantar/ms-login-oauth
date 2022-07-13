@@ -1,14 +1,13 @@
 package gob.mx.imss.mspad.oauth.business.impl;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import gob.mx.imss.mspad.oauth.business.AdmonPasswordService;
@@ -16,9 +15,9 @@ import gob.mx.imss.mspad.oauth.dao.PlantillaRepository;
 import gob.mx.imss.mspad.oauth.model.bean.RecuperarPassword;
 import gob.mx.imss.mspad.oauth.model.entity.PlantillaEntity;
 import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
+import gob.mx.imss.mspad.oauth.model.response.ErrorResponse;
 import gob.mx.imss.mspad.oauth.service.IUsuarioService;
 import gob.mx.imss.mspad.oauth.service.MailService;
-import gob.mx.imss.mspad.oauth.util.Constants;
 import gob.mx.imss.mspad.oauth.util.Crypto;
 import gob.mx.imss.mspad.oauth.util.FechaUtil;
 
@@ -75,11 +74,18 @@ public class AdmonPasswordServiceImpl implements AdmonPasswordService {
 
             recPass.setStatus("200");
             return recPass;
+        } catch (UsernameNotFoundException e) {
 
+			ErrorResponse errorResponse = new ErrorResponse();
+			errorResponse.setCode(401);
+			errorResponse.setMessage(e.getMessage());
+			recPass.setMessage(e.getMessage());
+			recPass.setStatus("false");
+			e.printStackTrace();
+		
         } catch (Exception e) {
             LOGGER.error(ExceptionUtils.getFullStackTrace(e));
-            LOGGER.error(ExceptionUtils.getFullStackTrace(e));
-            recPass.setStatus(ExceptionUtils.getFullStackTrace(e));
+			recPass.setStatus("false");
         }
 
         return recPass;

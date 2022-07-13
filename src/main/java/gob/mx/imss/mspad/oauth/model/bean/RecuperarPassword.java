@@ -9,5 +9,6 @@ import lombok.Setter;
 public class RecuperarPassword implements Serializable {
 
 	private String status;
+	private String message;
 
 }
