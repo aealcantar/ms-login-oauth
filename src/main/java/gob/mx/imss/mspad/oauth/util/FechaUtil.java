@@ -18,7 +18,7 @@ public class FechaUtil {
 
 	public static String fechaHoy() {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");	
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy",new Locale("es_ES"));	
 		String date = sdf.format(new Date());
 		return date;
 
