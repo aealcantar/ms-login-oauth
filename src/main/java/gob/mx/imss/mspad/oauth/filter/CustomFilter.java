@@ -102,8 +102,9 @@ public class CustomFilter implements Filter {
 				byte[] responseToSend = restResponseBytes(errorResponse);
 				response.setHeader(Constants.CONTENTTYPE, MediaType.APPLICATION_JSON_VALUE);
 				response.setStatus(401);
+				response.setCharacterEncoding("UTF-8");
 				response.getOutputStream().write(responseToSend);
-
+				LOGGER.info("error-response UTF-8" +responseToSend.toString());
 				LOGGER.info("UsernameNotFoundException e :{}", e.getMessage());
 
 				e.printStackTrace();

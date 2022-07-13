@@ -126,9 +126,17 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<executable>true</executable>
-					<jvmArguments>-Dfile.encoding=UTF8</jvmArguments>
+					 <jvmArguments>-Dfile.encoding=UTF8 -Dspring.profiles.active="production"</jvmArguments>
 				</configuration>
+				<dependencies>
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>springloaded</artifactId>
+                    <version>1.2.5.RELEASE</version>
+                </dependency>
+            </dependencies>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
