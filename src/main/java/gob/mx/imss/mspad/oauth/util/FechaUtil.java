@@ -47,7 +47,7 @@ public class FechaUtil {
        String  stringMes =fecha2.format(LocalDateTime.now());
         
         String mesNombre = stringMes.toUpperCase().charAt(0) + stringMes.substring(1, stringMes.length()).toLowerCase();
-        
+        LOGGER.info("mesNombre"+mesNombre);
 		LOGGER.info("FECHA2"+fecha2.format(LocalDateTime.now()));
 		
 		// Obtienes el mes actual
@@ -71,7 +71,7 @@ public class FechaUtil {
 		
 		
 	
-		return dia + " de "+ mesNombre +" de "+anio;
+		return dia + " de "+ mes2 +" de "+anio;
 		
 	}
 	
