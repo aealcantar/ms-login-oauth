@@ -20,6 +20,7 @@ import gob.mx.imss.mspad.oauth.dao.UsuarioRepository;
 import gob.mx.imss.mspad.oauth.model.bean.FuncionalidadRequest;
 import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
 import gob.mx.imss.mspad.oauth.service.IUsuarioService;
+import gob.mx.imss.mspad.oauth.util.Constants;
 
 /**
  * @Author Itzi B. Enriquez R. LT
@@ -57,7 +58,7 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 
 		if (usuarioEntity == null) {
 
-			throw new UsernameNotFoundException("Error :  ¡Usuario inválido!");
+			throw new UsernameNotFoundException(Constants.USUARIO_INVALIDO);
 
 		} else {
 
@@ -65,14 +66,13 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 
 				if (usuarioEntity.getIndNumIntentos() == null) {
 
-					throw new UsernameNotFoundException("El valor IndNumIntentos se encuentra nulo.");
+					throw new UsernameNotFoundException(Constants.NUM_INTENTOS_NULO);
 
 				} else {
 
 					if (usuarioEntity.getIndNumIntentos()>=3 || !usuarioEntity.getIndActivo().booleanValue()) {
 
-						throw new UsernameNotFoundException(
-								"Usuario bloqueado por número de intentos excedidos, favor de contactar al administrador.");
+						throw new UsernameNotFoundException(Constants.USUARIO_BLOQUEADO);
 
 					}
 
@@ -86,20 +86,18 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 						}
 						if (usuarioEntity.getIndNumIntentos() == 3) {
 							usuarioRepository.updateActivoInactivoUSer(false, usuarioEntity.getId());
-							throw new UsernameNotFoundException(
-									"¡Ha superado el número de intentos! Su cuenta se ha bloquedo Intente recuperar su contraseña.");
+							throw new UsernameNotFoundException(Constants.NUMERO_INTENTOS_SUPERADO);
 
 						}
 
-						throw new UsernameNotFoundException("¡Credenciales incorrectas. Volver a intentar! Solo tiene 3 intentos");
+						throw new UsernameNotFoundException(Constants.CREDENCIALES_INCORRECTAS);
 
 					}
 
 				}
 
 			} else {
-				throw new UsernameNotFoundException(
-						"Usuario inactivo, favor de contactar al administrador.");
+				throw new UsernameNotFoundException(Constants.USUARIO_INACTIVO);
 			}
 		}
 		return new CustomUser(username, passwordEncoder.encode(passwordAux), true, true, true, true, authorities);
@@ -111,7 +109,7 @@ public class UsuarioService implements UserDetailsService, IUsuarioService {
 		LOGGER.info("########## findUserByEmailUsername  ##########");
 		Optional<UsuarioEntity> usuario = usuarioRepository.findBydesEmail(correo);
 		if (!usuario.isPresent()) {
-			throw new UsernameNotFoundException("Error :  ¡Correo no registrado!");
+			throw new UsernameNotFoundException(Constants.CORREO_NO_REGISTRADO );
 
 		}
 
