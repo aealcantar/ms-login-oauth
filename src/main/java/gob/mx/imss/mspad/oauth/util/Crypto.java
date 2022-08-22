@@ -1,11 +1,12 @@
 package gob.mx.imss.mspad.oauth.util;
 
-import java.security.MessageDigest;
-import java.util.Arrays;
+import org.apache.tomcat.util.codec.binary.Base64;
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import org.apache.tomcat.util.codec.binary.Base64;
+import java.security.MessageDigest;
+import java.util.Arrays;
 
 public class Crypto {
 

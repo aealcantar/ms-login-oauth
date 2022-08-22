@@ -1,7 +1,8 @@
 package gob.mx.imss.mspad.oauth.model.bean;
 
-import java.util.ArrayList;
 import lombok.Data;
+
+import java.util.ArrayList;
 
 /**
  * @Author Itzi B. Enriquez R. LT

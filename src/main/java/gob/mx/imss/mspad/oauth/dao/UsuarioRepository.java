@@ -1,15 +1,15 @@
 package gob.mx.imss.mspad.oauth.dao;
 
-import java.math.BigInteger;
-import java.util.Optional;
-
+import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
+
+import java.math.BigInteger;
+import java.util.Optional;
 
 /**
  * @Author Itzi B. Enriquez R. LT

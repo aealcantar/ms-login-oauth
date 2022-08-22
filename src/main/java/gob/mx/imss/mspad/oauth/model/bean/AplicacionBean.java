@@ -1,8 +1,8 @@
 package gob.mx.imss.mspad.oauth.model.bean;
 
-import java.io.Serializable;
-
 import lombok.Data;
+
+import java.io.Serializable;
 
 
 @Data

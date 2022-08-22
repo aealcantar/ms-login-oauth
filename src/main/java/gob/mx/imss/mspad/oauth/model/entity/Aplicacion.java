@@ -1,24 +1,14 @@
 package gob.mx.imss.mspad.oauth.model.entity;
 
+import lombok.Data;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-import lombok.Data;
-
-/**
- * @Author Antonio Esteban Alcantar Valencia
- * @Date 6 junio 2022
- * @IMSS
- */
 @Data
 @Entity
 @Table(name="ADTST_APLICACIONES")

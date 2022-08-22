@@ -1,8 +1,8 @@
 package gob.mx.imss.mspad.oauth.model.bean;
 
-import java.math.BigInteger;
-
 import lombok.Data;
+
+import java.math.BigInteger;
 
 /**
  * @Author Itzi B. Enriquez R. LT

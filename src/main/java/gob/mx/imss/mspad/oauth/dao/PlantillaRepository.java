@@ -1,9 +1,8 @@
 package gob.mx.imss.mspad.oauth.dao;
 
+import gob.mx.imss.mspad.oauth.model.entity.PlantillaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import gob.mx.imss.mspad.oauth.model.entity.PlantillaEntity;
 
 
 /**

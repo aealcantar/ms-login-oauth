@@ -1,18 +1,17 @@
 package gob.mx.imss.mspad.oauth.util;
 
+import gob.mx.imss.mspad.oauth.jwt.filter.JwtRequestFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import gob.mx.imss.mspad.oauth.filter.CustomFilter;
-
 public class FechaUtil {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(CustomFilter.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JwtRequestFilter.class);
 
 	public static String fechaHoy() {
 

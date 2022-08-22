@@ -1,11 +1,10 @@
 package gob.mx.imss.mspad.oauth.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import gob.mx.imss.mspad.oauth.dao.AplicacionRepository;
 import gob.mx.imss.mspad.oauth.model.entity.Aplicacion;
 import gob.mx.imss.mspad.oauth.service.AplicacionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @Author Itzi B. Enriquez R. LT

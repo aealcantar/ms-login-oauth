@@ -2,7 +2,8 @@ server:
   port: 8080
   servlet:
     contextPath: /msadt-auth
-  tomcat:     uri-encoding: UTF-8
+  tomcat: 
+    uri-encoding: UTF-8
 spring:
   mail:
      default-encoding: UTF-8
@@ -17,9 +18,9 @@ spring:
   datasource:
       platform: mariadb
       driverClassName: org.mariadb.jdbc.Driver
-      url:  ${adt_CONNECTION_DB}
-      username: ${adt_USERNAME_DB}
-      password: ${adt_PASSWORD_DB}
+      url: jdbc:mysql://10.250.9.41:3306/ADTCOREBDQA #${adt_CONNECTION_DB}
+      username: ADTEDS_USER #${adt_USERNAME_DB}
+      password: ADT3D5_US3R #${adt_PASSWORD_DB}
 
       timeBetweenEvictionRunsMillis: 1000
       testWhileIdle: true

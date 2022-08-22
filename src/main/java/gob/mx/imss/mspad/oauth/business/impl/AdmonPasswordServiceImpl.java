@@ -1,8 +1,15 @@
 package gob.mx.imss.mspad.oauth.business.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import gob.mx.imss.mspad.oauth.business.AdmonPasswordService;
+import gob.mx.imss.mspad.oauth.dao.PlantillaRepository;
+import gob.mx.imss.mspad.oauth.jwt.service.UsuarioDetailsService;
+import gob.mx.imss.mspad.oauth.model.bean.RecuperarPassword;
+import gob.mx.imss.mspad.oauth.model.entity.PlantillaEntity;
+import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
+import gob.mx.imss.mspad.oauth.model.response.ErrorResponse;
+import gob.mx.imss.mspad.oauth.service.MailService;
+import gob.mx.imss.mspad.oauth.util.Crypto;
+import gob.mx.imss.mspad.oauth.util.FechaUtil;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,16 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import gob.mx.imss.mspad.oauth.business.AdmonPasswordService;
-import gob.mx.imss.mspad.oauth.dao.PlantillaRepository;
-import gob.mx.imss.mspad.oauth.model.bean.RecuperarPassword;
-import gob.mx.imss.mspad.oauth.model.entity.PlantillaEntity;
-import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
-import gob.mx.imss.mspad.oauth.model.response.ErrorResponse;
-import gob.mx.imss.mspad.oauth.service.IUsuarioService;
-import gob.mx.imss.mspad.oauth.service.MailService;
-import gob.mx.imss.mspad.oauth.util.Crypto;
-import gob.mx.imss.mspad.oauth.util.FechaUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class AdmonPasswordServiceImpl implements AdmonPasswordService {
@@ -28,7 +27,7 @@ public class AdmonPasswordServiceImpl implements AdmonPasswordService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdmonPasswordServiceImpl.class);
 
     @Autowired
-    private IUsuarioService usuarioService;
+    private UsuarioDetailsService usuarioService;
 
     @Autowired
     private MailService mailService;
@@ -42,21 +41,14 @@ public class AdmonPasswordServiceImpl implements AdmonPasswordService {
         RecuperarPassword recPass = new RecuperarPassword();
         try {
             LOGGER.info("Se verifica que exista el correo ingresado en el sistema" + correo);
-
             UsuarioEntity usuario = usuarioService.findByCorreo(correo);
-
             List<String> correos = new ArrayList<String>();
             correos.add(usuario.getDesEmail());
-
-
             PlantillaEntity plantillaEntity = plantillaRepository.findByDesClave("conf_reset_password");
-
-
             String htmlText = null;
             String htmlText2 = null;
             String htmlText3 = null;
             String plantillaString = null;
-//        String cadenaDondeBuscar = "DATA_FECHA";
             String loQueQuieroBuscar = "DATA_FECHA";
             String[] palabras = loQueQuieroBuscar.split(" ");
             for (String palabra : palabras) {
@@ -65,9 +57,6 @@ public class AdmonPasswordServiceImpl implements AdmonPasswordService {
                     htmlText2 = htmlText.replaceAll("DATA_NOMBRE", usuario.getNomNombreCompleto());
                     htmlText3 = htmlText2.replaceAll("DATA_CORREO", correo);
                     plantillaString = htmlText3.replaceAll("DATA_FORMAT2", FechaUtil.fechaHoy());
-                    
-                    
-
                 }
             }
 
@@ -103,10 +92,7 @@ public class AdmonPasswordServiceImpl implements AdmonPasswordService {
             String passEncript = crypto.encrypt(password);
             Integer result = usuarioService.updatePasswordByCorreo(correo, passEncript);
             if (result > 0) recuperarPassword.setStatus("200");
-
-
         } catch (Exception e) {
-
             LOGGER.error(ExceptionUtils.getFullStackTrace(e));
             recuperarPassword.setStatus(ExceptionUtils.getFullStackTrace(e));
         }
