@@ -33,37 +33,29 @@ public class UsuarioDetailsService implements UserDetailsService {
     @SneakyThrows
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        Map<String, String> usuarios = new HashMap<>();
-//                usuarios.put("eduardoFlores", "USER");
         Crypto crypto = new Crypto();
         UsuarioEntity usuarioEntity = usuarioRepository.findByNumMatricula(Long.valueOf(username));
-        LOGGER.info("user -> " + usuarioEntity.getNomUsuario());
         String rol = usuarioEntity.getNomUsuario();
-        if (rol != null) {
-            if (usuarioEntity.getIndNumIntentos() >= 3 || !usuarioEntity.getIndActivo().booleanValue()) {
-                throw new Exception(Constants.USUARIO_BLOQUEADO);
-            }
-            if (usuarioEntity != null && usuarioEntity.getIndNumIntentos() <= 3) {
-							int numIntentos = usuarioEntity.getIndNumIntentos().intValue();
-							usuarioEntity.setIndNumIntentos((long) numIntentos);
-							usuarioRepository.update3Reintentos(Long.valueOf(numIntentos) + 1, usuarioEntity.getId());
-						}
-						if (usuarioEntity.getIndNumIntentos() == 3) {
-							usuarioRepository.updateActivoInactivoUSer(false, usuarioEntity.getId());
-                            throw new Exception(Constants.USUARIO_BLOQUEADO);
-						}
+//        if (rol != null) {
+//            if (usuarioEntity.getIndNumIntentos() >= 3 || !usuarioEntity.getIndActivo().booleanValue()) {
+//                throw new Exception(Constants.USUARIO_BLOQUEADO);
+//            }
+//            if (usuarioEntity != null && usuarioEntity.getIndNumIntentos() <= 3) {
+//							int numIntentos = usuarioEntity.getIndNumIntentos().intValue();
+//							usuarioEntity.setIndNumIntentos((long) numIntentos);
+//							usuarioRepository.update3Reintentos(Long.valueOf(numIntentos) + 1, usuarioEntity.getId());
+//						}
+//						if (usuarioEntity.getIndNumIntentos() == 3) {
+//							usuarioRepository.updateActivoInactivoUSer(false, usuarioEntity.getId());
+//                            throw new Exception(Constants.USUARIO_BLOQUEADO);
+//						}
             User.UserBuilder userBuilder = User.withUsername(username);
-            // fernandez -> [BCrypt] -> $2y$10$qrpp10jwF5x5sAWnIwDkhOSaRrdQbyw67caeuIbWkbWYPOoRela4a
-             //String encryptedPassword = "$2y$10$qrpp10jwF5x5sAWnIwDkhOSaRrdQbyw67caeuIbWkbWYPOoRela4a";
             String encryptedPassword = new BCryptPasswordEncoder().encode(crypto.decrypt(usuarioEntity.getDesPassword()));
-            //LOGGER.info("pass  -> " + passwordAux);
-           // LOGGER.info("pass decrypt -> " + crypto.decrypt(usuarioEntity.getDesPassword()));
-           // LOGGER.info("pass  -> " + encryptedPassword + " decrypt ->" + crypto.decrypt(usuarioEntity.getDesPassword()));
             userBuilder.password(encryptedPassword).roles(rol);
             return userBuilder.build();
-        } else {
-            throw new Exception(Constants.USUARIO_BLOQUEADO);
-        }
+//        } else {
+//            throw new Exception(Constants.USUARIO_BLOQUEADO);
+//        }
     }
 
 

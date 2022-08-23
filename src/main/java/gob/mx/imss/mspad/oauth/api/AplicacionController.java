@@ -52,7 +52,7 @@ public class AplicacionController {
 
 
 	@PostMapping("/publico/authenticate")
-	public ResponseEntity<TokenInfo> authenticate(@RequestBody AuthenticationReq authenticationReq) {
+	public ResponseEntity<TokenInfo> authenticate(@RequestBody AuthenticationReq authenticationReq) throws Exception {
 		LOGGER.info("Autenticando al usuario {}", authenticationReq.getUsuario());
 		usuarioService.setPasswordAux(authenticationReq.getClave());
 		authenticationManager.authenticate(

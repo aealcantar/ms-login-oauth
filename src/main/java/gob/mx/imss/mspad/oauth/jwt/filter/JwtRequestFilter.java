@@ -50,12 +50,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             usr.setPasswordAux(request.getParameter("clave"));
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
-            if (jwtUtilService.validateToken(jwt, userDetails)) {
+            try {
+                if (jwtUtilService.validateToken(jwt, userDetails)) {
 
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities());
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
         filterChain.doFilter(request, response);
