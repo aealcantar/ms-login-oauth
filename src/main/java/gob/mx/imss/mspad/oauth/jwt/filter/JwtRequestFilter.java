@@ -3,6 +3,7 @@ package gob.mx.imss.mspad.oauth.jwt.filter;
 import gob.mx.imss.mspad.oauth.api.AplicacionController;
 import gob.mx.imss.mspad.oauth.jwt.service.JwtUtilService;
 import gob.mx.imss.mspad.oauth.jwt.service.UsuarioDetailsService;
+import gob.mx.imss.mspad.oauth.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +50,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             usr.setPasswordAux(request.getParameter("clave"));
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-
-            try {
                 if (jwtUtilService.validateToken(jwt, userDetails)) {
 
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -58,9 +57,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
         }
         filterChain.doFilter(request, response);
     }

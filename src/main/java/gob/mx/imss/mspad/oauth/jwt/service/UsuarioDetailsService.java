@@ -36,26 +36,11 @@ public class UsuarioDetailsService implements UserDetailsService {
         Crypto crypto = new Crypto();
         UsuarioEntity usuarioEntity = usuarioRepository.findByNumMatricula(Long.valueOf(username));
         String rol = usuarioEntity.getNomUsuario();
-//        if (rol != null) {
-//            if (usuarioEntity.getIndNumIntentos() >= 3 || !usuarioEntity.getIndActivo().booleanValue()) {
-//                throw new Exception(Constants.USUARIO_BLOQUEADO);
-//            }
-//            if (usuarioEntity != null && usuarioEntity.getIndNumIntentos() <= 3) {
-//							int numIntentos = usuarioEntity.getIndNumIntentos().intValue();
-//							usuarioEntity.setIndNumIntentos((long) numIntentos);
-//							usuarioRepository.update3Reintentos(Long.valueOf(numIntentos) + 1, usuarioEntity.getId());
-//						}
-//						if (usuarioEntity.getIndNumIntentos() == 3) {
-//							usuarioRepository.updateActivoInactivoUSer(false, usuarioEntity.getId());
-//                            throw new Exception(Constants.USUARIO_BLOQUEADO);
-//						}
+
             User.UserBuilder userBuilder = User.withUsername(username);
             String encryptedPassword = new BCryptPasswordEncoder().encode(crypto.decrypt(usuarioEntity.getDesPassword()));
             userBuilder.password(encryptedPassword).roles(rol);
             return userBuilder.build();
-//        } else {
-//            throw new Exception(Constants.USUARIO_BLOQUEADO);
-//        }
     }
 
 
