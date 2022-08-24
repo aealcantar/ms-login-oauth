@@ -110,6 +110,11 @@
 			<version>20220320</version>
 		</dependency>
 
+<dependency>
+    <groupId>com.nimbusds</groupId>
+    <artifactId>nimbus-jose-jwt</artifactId>
+    <version>9.0.1</version>
+</dependency>
 
 	</dependencies>
 	<dependencyManagement>

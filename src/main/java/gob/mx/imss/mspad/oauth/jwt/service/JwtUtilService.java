@@ -2,6 +2,7 @@ package gob.mx.imss.mspad.oauth.jwt.service;
 
 import gob.mx.imss.mspad.oauth.api.AplicacionController;
 import gob.mx.imss.mspad.oauth.dao.UsuarioRepository;
+import gob.mx.imss.mspad.oauth.jwt.modelJwt.TokenInfo;
 import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
 import gob.mx.imss.mspad.oauth.util.Constants;
 import io.jsonwebtoken.Claims;
@@ -13,8 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.nimbusds.jwt.JWT;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.JWTParser;
+
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -29,6 +36,8 @@ public class JwtUtilService {
     private static final String JWT_SECRET_KEY = "cHJ1ZWJhRWZsb2Zl";
 
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 1000; // 8 Horas // 5 minutos
+    
+    public static final long JWT_REFRESH_TOKEN_VALIDITY = 9 * 60 * 1000;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -91,4 +100,20 @@ public class JwtUtilService {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
+    
+    public String refreshToken(TokenInfo tokenInfo) throws ParseException {
+    	JWT jwt = JWTParser.parse(tokenInfo.getJwtToken());
+    	JWTClaimsSet claims= jwt.getJWTClaimsSet();
+    	String nombreUsuario= claims.getSubject();
+    	List <String> rol = (List <String>)claims.getClaim("rol");
+    	
+    	  return Jwts.builder()
+                  .claim("rol", rol)
+                  .setSubject(nombreUsuario)
+                  .setIssuedAt(new Date(System.currentTimeMillis()))
+                  .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
+                  .signWith(SignatureAlgorithm.HS256, JWT_SECRET_KEY)
+                  .compact();
+    }
+    
 }

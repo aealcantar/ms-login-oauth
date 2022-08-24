@@ -10,6 +10,9 @@ import gob.mx.imss.mspad.oauth.model.entity.Aplicacion;
 import gob.mx.imss.mspad.oauth.model.entity.RolEntity;
 import gob.mx.imss.mspad.oauth.model.entity.UsuarioEntity;
 import gob.mx.imss.mspad.oauth.service.AplicacionService;
+
+import java.text.ParseException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +66,13 @@ public class AplicacionController {
 		final String jwt = jwtUtilService.generateToken(userDetails);
 		TokenInfo tokenInfo = new TokenInfo(jwt);
 		return ResponseEntity.ok(tokenInfo);
+	}
+	
+	@PostMapping("/refreshtoken")
+	public ResponseEntity<TokenInfo> refresh(@RequestBody TokenInfo tokenInfo) throws ParseException{
+		String token = jwtUtilService.refreshToken(tokenInfo);
+		TokenInfo jwt= new TokenInfo(token);
+		return new ResponseEntity(jwt, HttpStatus.OK);
 	}
 
 	/**
