@@ -47,7 +47,7 @@ public class UsuarioDetailsService implements UserDetailsService {
     public void addIntento(String usuario) throws JwtException {
         UsuarioEntity usuarioEntity = usuarioRepository.findByNumMatricula(Long.valueOf(usuario));
 
-        if (usuarioEntity.getId() != null) {
+        if (usuarioEntity != null) {
 
             Long numIntentos = usuarioEntity.getIndNumIntentos();
             Long totalIntentos = numIntentos + 1L;

@@ -32,7 +32,7 @@ import javax.validation.Valid;
  * @IMSS
  */
 @RestController
-@RequestMapping("")
+@RequestMapping("/api/aplicacion")
 @CrossOrigin
 public class AplicacionController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AplicacionController.class);
